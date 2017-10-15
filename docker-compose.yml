@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+   database:
+    image: mysql:5.7
+    volumes:
+      - ./db_data:/var/lib/mysql
+    restart: always
+    environment:
+       MYSQL_ROOT_PASSWORD: rootpassword
+       MYSQL_DATABASE: test
+       MYSQL_USER: test
+       MYSQL_PASSWORD: testpw
+
+   app:
+    depends_on:
+       - database
+    build:
+      context: ./eccube
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/var/www/
+    ports:
+       - "8088:80"
+    restart: always
