@@ -1,4 +1,9 @@
 FROM php:7.1-apache
+
+# Install APCu
+RUN pecl install apcu
+RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
+
 RUN apt-get update && apt-get install -y \
        apt-utils \
        zlib1g-dev \
